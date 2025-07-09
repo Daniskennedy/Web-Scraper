@@ -5,7 +5,7 @@ import json
 import pandas as pd
 
 st.title("Web Scraper & Parser") # Streamlit app title
-url = st.text_input("🔗 Enter the URL to scrape")
+url = st.text_input("Enter the URL to scrape")
 
 # Background image
 bg_choice = st.selectbox("Choose a background theme:", [ "Python", "Lite", "Wall-E"])
