@@ -8,7 +8,7 @@ st.title("Web Scraper & Parser") # Streamlit app title
 url = st.text_input("🔗 Enter the URL to scrape")
 
 # Background image
-bg_choice = st.selectbox("🎨 Choose a background theme:", [ "Python", "Lite", "Wall-E"])
+bg_choice = st.selectbox("Choose a background theme:", [ "Python", "Lite", "Wall-E"])
 
 # URL Map for Each Theme
 bg_map = {
@@ -41,7 +41,7 @@ st.markdown(
 
 # Scraping
 if st.button("Scrape Site"):
-    st.write("🔍 Scraping...")
+    st.write(" Scraping...")
     result = scrape_website(url)
     body_content = extract_body_content(result)
     cleaned_content = clean_body_content(body_content)
@@ -50,7 +50,7 @@ if st.button("Scrape Site"):
     st.session_state.pop("parsed_result", None)  # Reset previous result
 
     st.markdown("---")
-    with st.expander("📄 View Raw DOM Content"):
+    with st.expander("View Raw DOM Content"):
         st.text_area("DOM Content", cleaned_content, height=300)
 
 # Parsing
@@ -59,7 +59,7 @@ if st.session_state.get("dom_content"):
 
     if st.button("Parse Content"):
         if parse_description:
-            with st.spinner("⚙️ Parsing content with Ollama..."):
+            with st.spinner("Parsing content with Ollama..."):
                 dom_chunks = split_dom_content(st.session_state.dom_content)
                 result = parse_with_ollama(dom_chunks, parse_description)
 
@@ -68,13 +68,13 @@ if st.session_state.get("dom_content"):
 # Display + Downloads
 if st.session_state.get("parsed_result"):
     st.markdown("---")
-    with st.expander("✅ Parsed Results", expanded=True):
+    with st.expander("Parsed Results", expanded=True):
         st.code(st.session_state.parsed_result, language="markdown")
 
         # JSON download
         json_data = {"parsed_output": st.session_state.parsed_result}
         st.download_button(
-            "⬇️ Download as JSON",
+            "Download as JSON",
             data=json.dumps(json_data, indent=2),
             file_name="parsed_output.json",
             mime="application/json"
@@ -86,13 +86,13 @@ if st.session_state.get("parsed_result"):
             df = pd.DataFrame(rows)
             csv_data = df.to_csv(index=False)
             st.download_button(
-                "⬇️ Download as CSV",
+                "Download as CSV",
                 data=csv_data,
                 file_name="parsed_output.csv",
                 mime="text/csv"
             )
         except Exception:
-            st.info("⚠️ CSV not available: output is not structured as a table.")
+            st.info("CSV not available: output is not structured as a table.")
 
 st.markdown("----")
 st.caption("Created for APP DEV IS3020 | © 2025")
